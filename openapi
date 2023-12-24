@@ -1,0 +1,1 @@
+php vendor/bin/openapi app -o openapi.yaml

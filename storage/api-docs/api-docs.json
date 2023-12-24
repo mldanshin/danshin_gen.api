@@ -1,0 +1,752 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Danshin Genealogy",
+        "description": "Доступ ко всем данным только через API токен,\n        в противном случае будет возвращаться ошибка 401.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/dates": {
+            "get": {
+                "operationId": "fdfd1a1676f59139ddc326a711ca3bef",
+                "responses": {
+                    "200": {
+                        "description": "Список всех дат (день рождения и день памяти)."
+                    }
+                }
+            }
+        },
+        "/api/dates/upcoming": {
+            "get": {
+                "operationId": "4bbd43443fba95f7662a6111cbb24add",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": null,
+                        "description": "Текущее число в формате гггг-мм-дд",
+                        "required": true
+                    },
+                    {
+                        "name": "past_day",
+                        "in": null,
+                        "description": "Количество предшествующих дней (число от 1 до 30).",
+                        "required": true
+                    },
+                    {
+                        "name": "nearest_day",
+                        "in": null,
+                        "description": "Количество будующих дней (число от 1 до 30).",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список ближайших дат (предыдущие дни, текущий день, будущие дни,\n                    в соответтвии с переданными параметрами)."
+                    }
+                }
+            }
+        },
+        "/api/dates/notify-all": {
+            "get": {
+                "operationId": "45b3c2c66eb02d7ca4ea51c0e9b7e61a",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": null,
+                        "description": "Текущее число в формате гггг-мм-дд",
+                        "required": true
+                    },
+                    {
+                        "name": "past_day",
+                        "in": null,
+                        "description": "Количество предшествующих дней (число от 1 до 30).",
+                        "required": true
+                    },
+                    {
+                        "name": "nearest_day",
+                        "in": null,
+                        "description": "Количество будующих дней (число от 1 до 30).",
+                        "required": true
+                    },
+                    {
+                        "name": "path_person",
+                        "in": null,
+                        "description": "Путь к лицу.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Уведомления о ближайших датах направлено."
+                    },
+                    "500": {
+                        "description": "Ошибки при отправлении уведомлений."
+                    }
+                }
+            }
+        },
+        "/api/dates/subscription/data/{personId}": {
+            "get": {
+                "operationId": "9d26ed897048996ec9bee9fd69d5e9eb",
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": null,
+                        "description": "Id пользователя",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Url телеграм бота и код."
+                    },
+                    "404": {
+                        "description": "Пользователя с переданным id не найден."
+                    }
+                }
+            }
+        },
+        "/api/dates/subscription/create/{personId}": {
+            "get": {
+                "operationId": "6ad713b762fe75d26f4366c3346c87e7",
+                "responses": {
+                    "200": {
+                        "description": "Создание подписки."
+                    },
+                    "404": {
+                        "description": "Пользователя с переданным id не найден."
+                    }
+                }
+            }
+        },
+        "/api/dates/subscription/delete/{personId}": {
+            "get": {
+                "operationId": "c1c90e721576735eb2b4a9bfc21ef7c9",
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": null,
+                        "description": "Id пользователя",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Удаление подписки."
+                    },
+                    "404": {
+                        "description": "Пользователя с переданным id не найден."
+                    }
+                }
+            }
+        },
+        "/api/dates/subscription/exists/{personId}": {
+            "get": {
+                "operationId": "8673357fc6fe08c765e8fe9b285cc72a",
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": null,
+                        "description": "Id пользователя",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Существование подписки."
+                    },
+                    "404": {
+                        "description": "Пользователь с переданным id не найден."
+                    }
+                }
+            }
+        },
+        "/api/download/people": {
+            "get": {
+                "operationId": "10b720343e2ee730f9dbc16ac71b7fac",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": null,
+                        "description": "Формат файла. Доступные форматы: pdf.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл, содержащий всех лиц родословной."
+                    },
+                    "302": {
+                        "description": "Не указан формат файла в параметрах запроса."
+                    },
+                    "404": {
+                        "description": "Файл в переданном формате не найден (не поддерживается)."
+                    }
+                }
+            }
+        },
+        "/api/download/person/{id}": {
+            "get": {
+                "operationId": "08edc056a1e59b1abb6a825ca6295647",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": true
+                    },
+                    {
+                        "name": "type",
+                        "in": null,
+                        "description": "Формат файла. Доступные форматы: pdf.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл, содержащий лицо с переданным id."
+                    },
+                    "302": {
+                        "description": "Не указан формат файла в параметрах запроса."
+                    },
+                    "404": {
+                        "description": "Лицо с переданным id не найдено или\n                    файл в переданном формате не найден (не поддерживается)."
+                    }
+                }
+            }
+        },
+        "/api/download/tree/{id}": {
+            "get": {
+                "operationId": "86f7cfe25414a6c4321f42bca696428b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": true
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": null,
+                        "description": "Id родителя (запрашиваемого лица) по которому строится древо,\n                    по умолчанию древо строится по отцу. Id родителя должно иметь тип integer."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл в формате SVG, содержащий древо лица с переданным id."
+                    },
+                    "302": {
+                        "description": "Параметры запроса не соответствуют ограничениям."
+                    },
+                    "404": {
+                        "description": "Лицо с переданным id не найдено\n                    или запрошенное лицо не имеет родителя, с переданным parent_id."
+                    }
+                }
+            }
+        },
+        "/api/download/db": {
+            "get": {
+                "operationId": "d390fd4eec488d49b108bd3c92b6bf19",
+                "responses": {
+                    "200": {
+                        "description": "Файл в формате SQL, содержащий базу данных родословной."
+                    }
+                }
+            }
+        },
+        "/api/download/photo": {
+            "get": {
+                "operationId": "92560dd3a81b0078b01a2c7e6fd2079b",
+                "responses": {
+                    "200": {
+                        "description": "Файл в формате ZIP, содержащий все фотоснимки из родословной."
+                    },
+                    "204": {
+                        "description": "Фотоснимки на сервере отсутствуют."
+                    }
+                }
+            }
+        },
+        "/api/genders": {
+            "get": {
+                "operationId": "e880e1ff3be8e939c96db9b12b1391df",
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых полов лица."
+                    }
+                }
+            }
+        },
+        "/api/marriage/roles": {
+            "get": {
+                "operationId": "b50ff32bf46f9b9c2ae7fcdbd8bf0491",
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых ролей в браке или близких отношениях между лицами."
+                    }
+                }
+            }
+        },
+        "/api/marriage/roles/{gender}": {
+            "get": {
+                "operationId": "1d492c94a9d97e8c3aa459d22467f1cd",
+                "parameters": [
+                    {
+                        "name": "gender",
+                        "in": null,
+                        "description": "Id gender.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых ролей (выборка по полу) в браке \n                    или близких отношениях между лицами."
+                    },
+                    "404": {
+                        "description": "Id запрошенного пола не найдено."
+                    }
+                }
+            }
+        },
+        "/api/marriage/possible/{personId}": {
+            "get": {
+                "operationId": "315a9bc1a95a3b77c55d77940a1160a1",
+                "parameters": [
+                    {
+                        "name": "person_id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": null,
+                        "description": "Дата рождения запрашиваемого лица.",
+                        "required": false
+                    },
+                    {
+                        "name": "role_id",
+                        "in": null,
+                        "description": "Id роли для родителя.",
+                        "required": true
+                    },
+                    {
+                        "name": "mariages",
+                        "in": null,
+                        "description": "Массив id лиц, состоящих в отношениях, с запрашиваемым лицом.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых лиц для брака или сожительства."
+                    },
+                    "422": {
+                        "description": "Неверные параметры запроса."
+                    }
+                }
+            }
+        },
+        "/api/parent/roles": {
+            "get": {
+                "operationId": "abfd3ed308762a0abd3b84f6a37efa71",
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых ролей родителей."
+                    }
+                }
+            }
+        },
+        "/api/parent/possible/{personId}/{roleParent}": {
+            "get": {
+                "operationId": "143ef865cb00bd4039ac0472bb29e8dd",
+                "parameters": [
+                    {
+                        "name": "person_id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": null,
+                        "description": "Дата рождения запрашиваемого лица.",
+                        "required": false
+                    },
+                    {
+                        "name": "role_id",
+                        "in": null,
+                        "description": "Id роли для родителя.",
+                        "required": true
+                    },
+                    {
+                        "name": "mariages",
+                        "in": null,
+                        "description": "Массив id лиц, состоящих в отношениях, с запрашиваемым лицом.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список допустимых родителей для запрошенного лица."
+                    },
+                    "422": {
+                        "description": "Неверные параметры запроса."
+                    }
+                }
+            }
+        },
+        "/api/people": {
+            "get": {
+                "operationId": "a2076bd049550892f60380607e3dacc2",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": null,
+                        "description": "Ключевое слово для упорядочивания списка. Доступны: age, name.\n                    По умолчанию сортировка по: name",
+                        "required": false
+                    },
+                    {
+                        "name": "search",
+                        "in": null,
+                        "description": "Строка поиска.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список всех лиц с кратким описанием."
+                    },
+                    "422": {
+                        "description": "Неверно указано ключевое слово для упорядочивания списка."
+                    }
+                }
+            }
+        },
+        "/api/person/create": {
+            "get": {
+                "operationId": "f9b1703efa49c2f6004014838cb7de2f",
+                "responses": {
+                    "200": {
+                        "description": "Новое лицо."
+                    }
+                }
+            }
+        },
+        "/api/person": {
+            "post": {
+                "operationId": "e3fa321f1f16f618321269761b9dce45",
+                "parameters": [
+                    {
+                        "name": "is_unavailable",
+                        "in": null,
+                        "description": "Доступность лица (поддерживается связь, поступает о нём известна информация).",
+                        "required": true
+                    },
+                    {
+                        "name": "is_live",
+                        "in": null,
+                        "description": "Статус живой или нет.",
+                        "required": true
+                    },
+                    {
+                        "name": "gender",
+                        "in": null,
+                        "description": "Пол (из допустимых значений).",
+                        "required": true
+                    },
+                    {
+                        "name": "surname",
+                        "in": null,
+                        "description": "Фамилия.",
+                        "required": false
+                    },
+                    {
+                        "name": "old_surname",
+                        "in": null,
+                        "description": "Прежние фамилии с порядковыми номерами.",
+                        "required": false
+                    },
+                    {
+                        "name": "name",
+                        "in": null,
+                        "description": "Имя.",
+                        "required": false
+                    },
+                    {
+                        "name": "patronymic",
+                        "in": null,
+                        "description": "Отчество.",
+                        "required": false
+                    },
+                    {
+                        "name": "has_patronymic",
+                        "in": null,
+                        "description": "Имеется ли отчество (по умолчанию отчество предполагается).",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": null,
+                        "description": "Дата рождения в формате гггг-мм-дд, вместо неизвестных цифр допустим символ ?",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_place",
+                        "in": null,
+                        "description": "Место рождения.",
+                        "required": false
+                    },
+                    {
+                        "name": "death_date",
+                        "in": null,
+                        "description": "Дата смерти в формате гггг-мм-дд, вместо неизвестных цифр допустим символ ?",
+                        "required": false
+                    },
+                    {
+                        "name": "burial_place",
+                        "in": null,
+                        "description": "Место захоронения.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Лицо успешно сохранено."
+                    },
+                    "422": {
+                        "description": "Неверные входные данные."
+                    }
+                }
+            }
+        },
+        "/api/person/{id}": {
+            "get": {
+                "operationId": "61b1d22e25fb2fecacff38a32de405fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "in": null,
+                        "description": "Дата в формате гггг-мм-дд,\n                    от которой будет идти отсчёт возраста лица и других сведений.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Лицо с переданным id."
+                    },
+                    "404": {
+                        "description": "Лицо с запрошенным id не существует."
+                    },
+                    "422": {
+                        "description": "Неверный формат даты, указанной в параметрах запроса."
+                    }
+                }
+            }
+        },
+        "/api/person/{id}/edit": {
+            "get": {
+                "operationId": "4a39e053ac92c3619301a49eb0f7386a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Лицо с переданным id для редактирования."
+                    },
+                    "404": {
+                        "description": "Лицо с запрошенным id не существует."
+                    }
+                }
+            }
+        },
+        "/api/person-photo/{person_id}": {
+            "get": {
+                "operationId": "bfec3f22124b00764d6440271a4f521a",
+                "parameters": [
+                    {
+                        "name": "person_id",
+                        "in": null,
+                        "description": "Id лица, чьи фото запрашиваются.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Массив фотоснимков для лица."
+                    },
+                    "404": {
+                        "description": "Лица с переданным id не найдено."
+                    }
+                }
+            }
+        },
+        "/api/photo/{person_id}/{file_name}": {
+            "get": {
+                "operationId": "c27f80bc424b24daad7c0ea0c2632f05",
+                "parameters": [
+                    {
+                        "name": "person_id",
+                        "in": null,
+                        "description": "Id лица, чьё фото запрашивается.",
+                        "required": true
+                    },
+                    {
+                        "name": "file_name",
+                        "in": null,
+                        "description": "Имя файла фото.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл фотографии."
+                    },
+                    "404": {
+                        "description": "Фото с переданными параметрами не найдено."
+                    }
+                }
+            }
+        },
+        "/api/tree/model/{id}": {
+            "get": {
+                "operationId": "a9e497e90504ecfe429c4e6b0fc10e97",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица",
+                        "required": true
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": null,
+                        "description": "Id родителя (запрашиваемого лица) по которому строится древо,\n                    по умолчанию древо строится случайным образом по отцу или матери.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Модель древа запрашиваемого лица в формате JSON."
+                    }
+                }
+            }
+        },
+        "/api/tree/image/{id}": {
+            "get": {
+                "operationId": "178879ccc218f6c988c26e0b3e120227",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица",
+                        "required": true
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": null,
+                        "description": "Id родителя (запрашиваемого лица) по которому строится древо,\n                    по умолчанию древо строится случайным образом по отцу или матери.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл изображения, содержащий древо запрашиваемого лица."
+                    }
+                }
+            }
+        },
+        "/api/tree/image-interactive/{id}": {
+            "get": {
+                "operationId": "8cf161956d59d8917405007bbcaf2900",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица",
+                        "required": true
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": null,
+                        "description": "Id родителя (запрашиваемого лица) по которому строится древо,\n                    по умолчанию древо строится случайным образом по отцу или матери.",
+                        "required": false
+                    },
+                    {
+                        "name": "path_person",
+                        "in": null,
+                        "description": "Путь к лицу.",
+                        "required": true
+                    },
+                    {
+                        "name": "path_tree",
+                        "in": null,
+                        "description": "Путь к древу лица.",
+                        "required": true
+                    },
+                    {
+                        "name": "image_person",
+                        "in": null,
+                        "description": "Путь к изображению, используемому в ссылке.",
+                        "required": true
+                    },
+                    {
+                        "name": "image_tree",
+                        "in": null,
+                        "description": "Путь к изображению, используемому в ссылке.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Файл изображения, содержащий древо запрашиваемого лица,\n            содержащий интерактивные ссылки в древе.\n            Ссылка на лицо должна соответствовать шаблону path/person_id,\n            где path - путь к древу,\n            person_id - id номер запрашиваемого лица,\n            то есть Вы предоставляете path, к которому настоящее API добавляет id лица.\n            Ссылка на древо лица должна соответствовать шаблону path/person_id.\n            Также Вы должны предоставить путь к двум изображениям, которые будут использоваться в ссылке."
+                    }
+                }
+            }
+        },
+        "/api/tree/toggle/{id}": {
+            "get": {
+                "operationId": "ef419dfded6c6beba9db66a8b4daa6e3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id запрашиваемого лица",
+                        "required": true
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": null,
+                        "description": "Id родителя (запрашиваемого лица) по которому строится древо,\n                    по умолчанию древо строится случайным образом по отцу или матери.\n                    Id родителя должно иметь тип integer.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Переключатель для древа запрашиваемого лица."
+                    },
+                    "204": {
+                        "description": "Переключатель для запрашиваемого лица отсутствует,\n                    так как лицо не имеет родителей."
+                    },
+                    "404": {
+                        "description": "Лицо с запрошенным id не существует\n                    или запрошенное лицо не имеет родителя, с переданным parent_id."
+                    },
+                    "422": {
+                        "description": "Параметры запроса не соответствуют ограничениям."
+                    }
+                }
+            }
+        }
+    }
+}
