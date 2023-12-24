@@ -1,0 +1,1 @@
+<x-dates.subscription.events-notification :model="$events" :pathPerson="$pathPerson" />
