@@ -508,6 +508,54 @@
                         "in": null,
                         "description": "Место захоронения.",
                         "required": false
+                    },
+                    {
+                        "name": "note",
+                        "in": null,
+                        "description": "Примечание.",
+                        "required": false
+                    },
+                    {
+                        "name": "activities",
+                        "in": null,
+                        "description": "Род деятельности (работа, предпринимательство, увлечения).",
+                        "required": false
+                    },
+                    {
+                        "name": "emails",
+                        "in": null,
+                        "description": "Адреса электронной почты.",
+                        "required": false
+                    },
+                    {
+                        "name": "internet",
+                        "in": null,
+                        "description": "Интернет ресурсы (страницы в соц.сетях, личные сайты).",
+                        "required": false
+                    },
+                    {
+                        "name": "phones",
+                        "in": null,
+                        "description": "Телефоны (должен состоять из 10 цифр).",
+                        "required": false
+                    },
+                    {
+                        "name": "residences",
+                        "in": null,
+                        "description": "Места проживания.",
+                        "required": false
+                    },
+                    {
+                        "name": "parents",
+                        "in": null,
+                        "description": "Родители.",
+                        "required": false
+                    },
+                    {
+                        "name": "marriages",
+                        "in": null,
+                        "description": "Отношения.",
+                        "required": false
                     }
                 ],
                 "responses": {
@@ -546,6 +594,145 @@
                     },
                     "422": {
                         "description": "Неверный формат даты, указанной в параметрах запроса."
+                    }
+                }
+            },
+            "put": {
+                "operationId": "1a7473b83a56b2325d2df07319dd3140",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": null,
+                        "description": "Id изменяемого лица.",
+                        "required": true
+                    },
+                    {
+                        "name": "is_unavailable",
+                        "in": null,
+                        "description": "Доступность лица (поддерживается связь, поступает о нём известна информация).",
+                        "required": true
+                    },
+                    {
+                        "name": "is_live",
+                        "in": null,
+                        "description": "Статус живой или нет.",
+                        "required": true
+                    },
+                    {
+                        "name": "gender",
+                        "in": null,
+                        "description": "Пол (из допустимых значений).",
+                        "required": true
+                    },
+                    {
+                        "name": "surname",
+                        "in": null,
+                        "description": "Фамилия.",
+                        "required": false
+                    },
+                    {
+                        "name": "old_surname",
+                        "in": null,
+                        "description": "Прежние фамилии с порядковыми номерами.",
+                        "required": false
+                    },
+                    {
+                        "name": "name",
+                        "in": null,
+                        "description": "Имя.",
+                        "required": false
+                    },
+                    {
+                        "name": "patronymic",
+                        "in": null,
+                        "description": "Отчество.",
+                        "required": false
+                    },
+                    {
+                        "name": "has_patronymic",
+                        "in": null,
+                        "description": "Имеется ли отчество (по умолчанию отчество предполагается).",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": null,
+                        "description": "Дата рождения в формате гггг-мм-дд, вместо неизвестных цифр допустим символ ?",
+                        "required": false
+                    },
+                    {
+                        "name": "birth_place",
+                        "in": null,
+                        "description": "Место рождения.",
+                        "required": false
+                    },
+                    {
+                        "name": "death_date",
+                        "in": null,
+                        "description": "Дата смерти в формате гггг-мм-дд, вместо неизвестных цифр допустим символ ?",
+                        "required": false
+                    },
+                    {
+                        "name": "burial_place",
+                        "in": null,
+                        "description": "Место захоронения.",
+                        "required": false
+                    },
+                    {
+                        "name": "note",
+                        "in": null,
+                        "description": "Примечание.",
+                        "required": false
+                    },
+                    {
+                        "name": "activities",
+                        "in": null,
+                        "description": "Род деятельности (работа, предпринимательство, увлечения).",
+                        "required": false
+                    },
+                    {
+                        "name": "emails",
+                        "in": null,
+                        "description": "Адреса электронной почты.",
+                        "required": false
+                    },
+                    {
+                        "name": "internet",
+                        "in": null,
+                        "description": "Интернет ресурсы (страницы в соц.сетях, личные сайты).",
+                        "required": false
+                    },
+                    {
+                        "name": "phones",
+                        "in": null,
+                        "description": "Телефоны (должен состоять из 10 цифр).",
+                        "required": false
+                    },
+                    {
+                        "name": "residences",
+                        "in": null,
+                        "description": "Места проживания.",
+                        "required": false
+                    },
+                    {
+                        "name": "parents",
+                        "in": null,
+                        "description": "Родители.",
+                        "required": false
+                    },
+                    {
+                        "name": "marriages",
+                        "in": null,
+                        "description": "Отношения.",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Лицо успешно сохранено."
+                    },
+                    "422": {
+                        "description": "Неверные входные данные."
                     }
                 }
             }

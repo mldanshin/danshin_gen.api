@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth.basic')->group(function() {
+Route::middleware('auth:sanctum')->group(function() {
     Route::get("/", IndexController::class)->name("index");
     Route::post('/token', function (Request $request) {
         $user = $request->user();
@@ -31,4 +32,6 @@ Route::middleware('auth.basic')->group(function() {
     })->name("token");
 });
 
-Route::get("login", fn() => response('Unauthorized', 401))->name("login");
+Route::get("login", [LoginController::class, "dashboard"])->name("login");
+Route::post("login", [LoginController::class, "authenticate"])->name("login.auth");
+

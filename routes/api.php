@@ -30,7 +30,7 @@ Route::prefix("/dates/")->name("dates.")->group(function () {
         ->name("subscription.create");
 });
 
-Route::middleware(['auth:sanctum', 'ability:admin'])->group(function() {
+Route::middleware(['auth:sanctum', 'ability:admin', "throttle: $throttle"])->group(function() {
     Route::resource("person", PersonController::class)->except(["index", "show"]);
     Route::get('/genders', [GenderController::class, "getAll"])->name("gender.all");
     Route::prefix("/marriage/")->name("marriage.")->group(function () {
